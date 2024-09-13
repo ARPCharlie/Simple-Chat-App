@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+        <title>Simple Chat App</title>
+    </head>
+    <body>
+        <div class="w-full max-h-screen bg-gray-900 text-white">
+            <div class="w-3/4 justify-center flex flex-col">
+                <h1 class="font-bold text-4xl">Chat App</h1>
+            </div>
+
+            <div class="w-3/4 justify-center flex flex-col">
+                <div id="chat">
+                    
+                </div>    
+            </div>
+
+            <div class="w-3/4 justify-center flex flex-col">
+                <form id="messageForm">
+                    <input type="text" id="messageInput" class="w-full p-2 bg-gray-800 text-white" placeholder="Type your message">
+                    <button type="submit" class="w-full p-2 bg-gray-800 text-white">Send</button>
+                </form>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function() {
+                $('#messageForm').submit(function(e) {
+                    e.preventDefault();
+                    var message = $('#messageInput').val();
+                    $.ajax({
+                        url: '/send_message',
+                        type: 'POST',
+                        data: { message: message },
+                        success: function(response) {
+                            $('#chat').append('<p>' + message + '</p>');
+                            $('#messageInput').val('');
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>

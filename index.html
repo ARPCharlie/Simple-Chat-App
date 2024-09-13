@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <script src="https://cdn.tailwindcss.com"></script>
+
+        <title>Simple Chat App</title>
+    </head>
+    <body>
+        <div class="w-full h-screen bg-gray-900 text-center flex flex-col justify-center items-center text-white">
+            <div class="w-3/4 justify-center flex flex-col py-12">
+                <h1 class="font-bold text-6xl">Chat App</h1>
+            </div>
+
+            <div class="w-3/4 justify-center flex flex-col items-center">
+                <div class="w-2/4 flex flex-col bg-gray-200 p-10 rounded-md">
+                    <form id="registerForm">
+                        <input type="text" name="username" placeholder="Username" class="w-full p-2 border-4 border-black rounded-md bg-gray-800 text-white mb-20">
+                        <input type="submit" value="Register" class="w-full p-2 border-4 border-black rounded-md bg-gray-800 text-white">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                
+                fetch('/register', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response here
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        </script>
+    </body>
+</html>
